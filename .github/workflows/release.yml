@@ -14,10 +14,11 @@ jobs:
       matrix:
         os: [linux, windows, macos]
         arch: [amd64, arm64]
-        include:
-          # Adding specific combinations for the universal macOS binary
-          - os: macos
-            arch: universal
+        #TODO build a Mac Universal binary vs Arm/Intel
+        #include:
+        # Adding specific combinations for the universal macOS binary
+        # - os: macos
+        #   arch: universal
 
     steps:
       - name: Checkout Code
@@ -39,7 +40,6 @@ jobs:
               # Build both architectures separately and combine them with lipo
               GOOS=darwin GOARCH=amd64 go build -o ctf_serve_macos_amd64
               GOOS=darwin GOARCH=arm64 go build -o ctf_serve_macos_arm64
-              lipo -create -output ctf_serve_macos_universal ctf_serve_macos_amd64 ctf_serve_macos_arm64
             else
               GOOS=darwin GOARCH=${{ matrix.arch }} go build -o ctf_serve_macos_${{ matrix.arch }}
             fi
@@ -54,7 +54,6 @@ jobs:
             ctf_serve_linux_*
             ctf_serve_windows_*.exe
             ctf_serve_macos_*
-            ctf_serve_macos_universal
 
   release:
     name: Create Release
