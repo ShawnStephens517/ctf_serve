@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index of {{ .Directory }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        li:hover {
+            background-color: #f1f1f1;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .icon {
+        width: 24px;  /* Set a consistent width for all icons */
+        height: 24px; /* Set a consistent height for all icons */
+        margin-right: 10px;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Index of {{ .Directory }}</h1>
+        <ul>
+            {{ range .FileList }}
+                <li>
+                    <img src="/icons/{{ .Icon }}" class="icon" alt="Icon">
+                    <a href="{{ .URL }}">{{ .Name }}</a>
+                </li>
+            {{ end }}
+        </ul>
+    </div>
+</body>
+</html>
